@@ -29,7 +29,7 @@ import PhotosUI
 
 
 struct RunInferenceView: View {
-    @StateObject private var viewModel: ImageModel = ImageModel();
+    @StateObject private var viewModel: ImageModel = ImageModel.with_initial_image(UIImage(named: "maisie poopin")!)
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {

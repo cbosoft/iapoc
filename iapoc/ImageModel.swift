@@ -31,6 +31,12 @@ import CoreTransferable
 @MainActor
 class ImageModel: ObservableObject {
     
+    static func with_initial_image(_ image: UIImage) -> ImageModel {
+        let im = ImageModel()
+        im.imageState = .success(image)
+        return im
+    }
+    
     let ia_model = IAModel();
     
     enum ImageState {
@@ -61,7 +67,13 @@ class ImageModel: ObservableObject {
         }
     }
     
-    @Published private(set) var imageState: ImageState = .empty
+    @Published private(set) var imageState: ImageState = .empty {
+        didSet {
+            if case .success(let image) = imageState {
+                analyseImage(image: image)
+            }
+        }
+    }
     @Published private(set) var segmentationResult: UIImage? = nil
     
     @Published var imageSelection: PhotosPickerItem? = nil {
@@ -125,7 +137,6 @@ class ImageModel: ObservableObject {
                 switch result {
                 case .success(let tbl_image?):
                     self.imageState = .success(tbl_image.image)
-                    self.analyseImage(image: tbl_image.image)
                 case .success(nil):
                     self.imageState = .empty
                 case .failure(let error):
