@@ -69,7 +69,7 @@ class IAModel {
     struct Prediction {
         let confidence: Float
         let label: Int
-        let box: [Float] // xywh? xyxy? who knows!
+        let box: BBox
     }
 
     /// The function signature the caller must provide as a completion handler.
@@ -141,28 +141,24 @@ class IAModel {
         for observation in observations {
             if let data = observation.featureValue.multiArrayValue{
                 if observation.featureName == "p" {
-                    print(data[[0, 0, 0, 1]], data[1]);
                     // TODO: handle segmentation data
                 }
                 else if observation.featureName == "var_1279" {
                     let npreds = data.shape[2].intValue;
                     var overall_class: Int = -1;
                     var overall_score: Float = -1;
-                    var overall_box: [Float] = [0, 0, 0, 0];
+                    var overall_box: BBox = BBox(x: 0, y: 0, w: 1, h: 1)
                     for i in 0..<npreds {
                         let i = i as NSNumber;
                         
-                        // First 4 are maybe boxes (see later)
-                        // Next 80 are confidence scores
-                        let scores: [Float] = (4..<84).map({ j in
+                        // First 4 are boxes
+                        let box: [Float] = (0..<4).map({ j in
                             data[[0, j as NSNumber, i]].floatValue
                         });
                         
-                        // First 4 or final 32 could be bboxes
-                        // First 4 are maybe in pixel units while last lot are all in (-1..1)
-                        let off = 84;
-                        let box: [Float] = (0..<4).map({ j in
-                            data[[0, (j + off) as NSNumber, i]].floatValue * 640.0
+                        // Next 80 are confidence scores
+                        let scores: [Float] = (4..<84).map({ j in
+                            data[[0, j as NSNumber, i]].floatValue
                         });
                         
                         // Get the most likely class (i.e. with highest score)
@@ -171,7 +167,7 @@ class IAModel {
                         if max_score > overall_score {
                             overall_score = max_score;
                             overall_class = i_max;
-                            overall_box = box;
+                            overall_box = BBox(x: box[0], y: box[1], w: box[2], h: box[3]);
                         }
                     }
                     

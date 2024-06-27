@@ -32,7 +32,7 @@ let COLOURS: [UIColor] = (0..<4).map({ i in UIColor(named: "C\(i)")!});
 
 func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImage? {
     if let predictions = predictions {
-        var bmp = image;
+        var bmp = image
         let sx = image.size.width / 640.0
         let sy = image.size.height / 640.0
         
@@ -48,22 +48,19 @@ func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImag
                 ctx.cgContext.setLineWidth(10.0)
                 
                 for (i, pred) in predictions.enumerated() {
-                    debugPrint("pred conf \(pred)")
                     let colour = COLOURS[i % COLOURS.count]
                     colour.setStroke()
                     
-                    let x = pred.box[0]
-                    let y = pred.box[1]
-                    let w = pred.box[2] - x
-                    let h = pred.box[3] - y
+                    let (x1, y1, x2, y2) = pred.box.xyxy()
+                    let (w, h) = (x2 - x1, y2 - y1)
                     
-                    let rect = CGRect(x: CGFloat(x)*sx, y: CGFloat(y)*sy, width: CGFloat(w)*sx, height: CGFloat(h)*sy);
+                    let rect = CGRect(x: CGFloat(x1)*sx, y: CGFloat(y1)*sy, width: CGFloat(w)*sx, height: CGFloat(h)*sy);
                     ctx.stroke(rect);
                 }
             });
         }
         
-        return UIImage(cgImage: bmp.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+        return UIImage(cgImage: bmp.cgImage!)
     }
     else {
         return nil
