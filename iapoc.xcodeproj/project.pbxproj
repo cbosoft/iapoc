@@ -18,6 +18,7 @@
 		832E87E22C2DEA5500EBAFCB /* PickedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E12C2DEA5500EBAFCB /* PickedImageView.swift */; };
 		832E87E42C2DEAB200EBAFCB /* InferenceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E32C2DEAB200EBAFCB /* InferenceResultsView.swift */; };
 		832E87E62C2DEB8200EBAFCB /* RunInferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E52C2DEB8200EBAFCB /* RunInferenceView.swift */; };
+		832E87E82C2DFBCD00EBAFCB /* draw_preds_on_image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E72C2DFBCD00EBAFCB /* draw_preds_on_image.swift */; };
 		83987EA22C2A136E00231FFA /* iapocApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987EA12C2A136E00231FFA /* iapocApp.swift */; };
 		83987EA42C2A136E00231FFA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987EA32C2A136E00231FFA /* ContentView.swift */; };
 		83987EA62C2A137300231FFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83987EA52C2A137300231FFA /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		832E87E12C2DEA5500EBAFCB /* PickedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImageView.swift; sourceTree = "<group>"; };
 		832E87E32C2DEAB200EBAFCB /* InferenceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceResultsView.swift; sourceTree = "<group>"; };
 		832E87E52C2DEB8200EBAFCB /* RunInferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunInferenceView.swift; sourceTree = "<group>"; };
+		832E87E72C2DFBCD00EBAFCB /* draw_preds_on_image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = draw_preds_on_image.swift; sourceTree = "<group>"; };
 		83987E9E2C2A136E00231FFA /* iapoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83987EA12C2A136E00231FFA /* iapocApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iapocApp.swift; sourceTree = "<group>"; };
 		83987EA32C2A136E00231FFA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				832E87E12C2DEA5500EBAFCB /* PickedImageView.swift */,
 				832E87E32C2DEAB200EBAFCB /* InferenceResultsView.swift */,
 				832E87E52C2DEB8200EBAFCB /* RunInferenceView.swift */,
+				832E87E72C2DFBCD00EBAFCB /* draw_preds_on_image.swift */,
 			);
 			path = iapoc;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */,
 				831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */,
 				832E87E62C2DEB8200EBAFCB /* RunInferenceView.swift in Sources */,
+				832E87E82C2DFBCD00EBAFCB /* draw_preds_on_image.swift in Sources */,
 				8319482B2C2B11BA007265C0 /* IAModel.swift in Sources */,
 				832E87E02C2DEA3300EBAFCB /* ImageSelector.swift in Sources */,
 				83987EA22C2A136E00231FFA /* iapocApp.swift in Sources */,
