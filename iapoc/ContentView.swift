@@ -25,17 +25,71 @@
 // SOFTWARE.
 
 import SwiftUI
+import PhotosUI
+
+struct InferenceResultsView: View {
+    let segmentationResult: UIImage?
+    
+    var body: some View {
+        if let segmentationResult = segmentationResult {
+            Image(uiImage: segmentationResult).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
+        }
+        else {
+            Image(systemName: "eye.square")
+                .font(.system(size: 40))
+                .symbolRenderingMode(.multicolor)
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+struct ImageView: View {
+    let imageState: ImageModel.ImageState
+    
+    var body: some View {
+        switch imageState {
+        case .success(let ui_image):
+            Image(uiImage: ui_image).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
+        case .loading:
+            ProgressView()
+        case .empty:
+            Image(systemName: "photo.artframe")
+                .font(.system(size: 40))
+                .foregroundColor(.blue)
+        case .failure:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.red)
+        }
+    }
+}
+
+struct EditableImageView: View {
+    @ObservedObject public var viewModel: ImageModel
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            // left: image picker
+            PhotosPicker(selection: $viewModel.imageSelection,
+                         matching: .images,
+                         photoLibrary: .shared()) {
+                ImageView(imageState: viewModel.imageState).frame(maxWidth: .infinity, maxHeight: .infinity).overlay(alignment: .bottomTrailing) {
+                }
+            }.buttonStyle(.borderless).frame(minWidth: 0, maxWidth: .infinity)
+            InferenceResultsView(segmentationResult: viewModel.segmentationResult).frame(minWidth: 0, maxWidth: .infinity)
+        }
+    }
+}
 
 struct ContentView: View {
+    @StateObject var viewModel = ImageModel();
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        HStack(alignment: .center, spacing: 10) {
+            EditableImageView(viewModel: viewModel)
         }
-        .padding()
     }
+    
 }
 
 #Preview {

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831948272C2AFF87007265C0 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831948262C2AFF87007265C0 /* PhotosUI.framework */; };
+		831948292C2B0902007265C0 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831948282C2B0902007265C0 /* ImageModel.swift */; };
+		8319482B2C2B11BA007265C0 /* IAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319482A2C2B11BA007265C0 /* IAModel.swift */; };
+		831AA4962C2D2B7F00A0A988 /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831AA4952C2D2B7F00A0A988 /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
+		831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA49C2C2D525000A0A988 /* yolov8n.mlpackage */; };
+		831AA49F2C2D539D00A0A988 /* yolov9e.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA49E2C2D539D00A0A988 /* yolov9e.mlpackage */; };
+		831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA4A02C2D5C7800A0A988 /* yolov8m-seg.mlpackage */; };
 		83987EA22C2A136E00231FFA /* iapocApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987EA12C2A136E00231FFA /* iapocApp.swift */; };
 		83987EA42C2A136E00231FFA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987EA32C2A136E00231FFA /* ContentView.swift */; };
 		83987EA62C2A137300231FFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83987EA52C2A137300231FFA /* Assets.xcassets */; };
@@ -14,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		831948262C2AFF87007265C0 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		831948282C2B0902007265C0 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		8319482A2C2B11BA007265C0 /* IAModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAModel.swift; sourceTree = "<group>"; };
+		831AA4952C2D2B7F00A0A988 /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
+		831AA49C2C2D525000A0A988 /* yolov8n.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = yolov8n.mlpackage; path = ../../../yolo2coreml/yolov8n.mlpackage; sourceTree = "<group>"; };
+		831AA49E2C2D539D00A0A988 /* yolov9e.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = yolov9e.mlpackage; path = ../../../yolo2coreml/yolov9e.mlpackage; sourceTree = "<group>"; };
+		831AA4A02C2D5C7800A0A988 /* yolov8m-seg.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "yolov8m-seg.mlpackage"; path = "../../../yolo2coreml/yolov8m-seg.mlpackage"; sourceTree = "<group>"; };
 		83987E9E2C2A136E00231FFA /* iapoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83987EA12C2A136E00231FFA /* iapocApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iapocApp.swift; sourceTree = "<group>"; };
 		83987EA32C2A136E00231FFA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,17 +40,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831948272C2AFF87007265C0 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		831948252C2AFF87007265C0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				831948262C2AFF87007265C0 /* PhotosUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		831AA4942C2D2B5100A0A988 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				831AA4952C2D2B7F00A0A988 /* CGImagePropertyOrientation+UIImageOrientation.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		83987E952C2A136E00231FFA = {
 			isa = PBXGroup;
 			children = (
 				83987EA02C2A136E00231FFA /* iapoc */,
 				83987E9F2C2A136E00231FFA /* Products */,
+				831948252C2AFF87007265C0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,10 +83,16 @@
 		83987EA02C2A136E00231FFA /* iapoc */ = {
 			isa = PBXGroup;
 			children = (
+				831AA4A02C2D5C7800A0A988 /* yolov8m-seg.mlpackage */,
+				831AA49E2C2D539D00A0A988 /* yolov9e.mlpackage */,
+				831AA49C2C2D525000A0A988 /* yolov8n.mlpackage */,
+				831AA4942C2D2B5100A0A988 /* Extensions */,
 				83987EA12C2A136E00231FFA /* iapocApp.swift */,
 				83987EA32C2A136E00231FFA /* ContentView.swift */,
 				83987EA52C2A137300231FFA /* Assets.xcassets */,
 				83987EA72C2A137300231FFA /* Preview Content */,
+				831948282C2B0902007265C0 /* ImageModel.swift */,
+				8319482A2C2B11BA007265C0 /* IAModel.swift */,
 			);
 			path = iapoc;
 			sourceTree = "<group>";
@@ -138,7 +176,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				83987EA42C2A136E00231FFA /* ContentView.swift in Sources */,
+				831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */,
+				831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */,
+				8319482B2C2B11BA007265C0 /* IAModel.swift in Sources */,
 				83987EA22C2A136E00231FFA /* iapocApp.swift in Sources */,
+				831AA4962C2D2B7F00A0A988 /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
+				831948292C2B0902007265C0 /* ImageModel.swift in Sources */,
+				831AA49F2C2D539D00A0A988 /* yolov9e.mlpackage in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +319,8 @@
 				DEVELOPMENT_TEAM = HFU4T6U2UD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "IA Proof of Concept";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +350,8 @@
 				DEVELOPMENT_TEAM = HFU4T6U2UD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "IA Proof of Concept";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
