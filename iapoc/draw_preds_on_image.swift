@@ -27,29 +27,35 @@
 import UIKit
 
 
+let COLOURS: [UIColor] = (0..<4).map({ i in UIColor(named: "C\(i)")!});
+
+
 func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImage? {
     if let predictions = predictions {
         var bmp = image;
         let sx = image.size.width / 640.0
         let sy = image.size.height / 640.0
+        
         autoreleasepool {
             let rendererFormat = UIGraphicsImageRendererFormat();
             rendererFormat.scale = 1;
             let renderer = UIGraphicsImageRenderer(size: bmp.size, format: rendererFormat);
             bmp = renderer.image(actions: { ctx in
                 // Draw original image
-                ctx.cgContext.draw(bmp.cgImage!, in: CGRect(x: 1, y: 1, width: bmp.size.width-1, height: bmp.size.height-1));
-                ctx.cgContext.setShouldAntialias(true);
-                ctx.cgContext.setStrokeColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0); // yellow
-                ctx.cgContext.setLineWidth(10.0);
+                image.draw(in: CGRect(x: 0, y: 0, width: bmp.size.width, height: bmp.size.height))
+                ctx.cgContext.setShouldAntialias(true)
+                ctx.cgContext.setStrokeColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0)
+                ctx.cgContext.setLineWidth(10.0)
                 
-                for pred in predictions {
+                for (i, pred) in predictions.enumerated() {
                     debugPrint("pred conf \(pred)")
+                    let colour = COLOURS[i % COLOURS.count]
+                    colour.setStroke()
                     
-                    let x = pred.box[0];
-                    let y = pred.box[1];
-                    let w = pred.box[2] - x;
-                    let h = pred.box[3] - y;
+                    let x = pred.box[0]
+                    let y = pred.box[1]
+                    let w = pred.box[2] - x
+                    let h = pred.box[3] - y
                     
                     let rect = CGRect(x: CGFloat(x)*sx, y: CGFloat(y)*sy, width: CGFloat(w)*sx, height: CGFloat(h)*sy);
                     ctx.stroke(rect);
@@ -57,7 +63,6 @@ func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImag
             });
         }
         
-        // Image is upside down 😭
         return UIImage(cgImage: bmp.cgImage!, scale: image.scale, orientation: image.imageOrientation)
     }
     else {
