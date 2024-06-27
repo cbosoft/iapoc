@@ -69,14 +69,18 @@ struct EditableImageView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            // left: image picker
-            PhotosPicker(selection: $viewModel.imageSelection,
-                         matching: .images,
-                         photoLibrary: .shared()) {
-                ImageView(imageState: viewModel.imageState).frame(maxWidth: .infinity, maxHeight: .infinity).overlay(alignment: .bottomTrailing) {
-                }
-            }.buttonStyle(.borderless).frame(minWidth: 0, maxWidth: .infinity)
-            InferenceResultsView(segmentationResult: viewModel.segmentationResult).frame(minWidth: 0, maxWidth: .infinity)
+            VStack {
+                Text("Input Image")
+                PhotosPicker(selection: $viewModel.imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    ImageView(imageState: viewModel.imageState).frame(maxWidth: .infinity, maxHeight: .infinity)
+                }.buttonStyle(.borderless).frame(minWidth: 0, maxWidth: .infinity)
+            }
+            VStack {
+                Text("Segmented Image")
+                InferenceResultsView(segmentationResult: viewModel.segmentationResult).frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
     }
 }
