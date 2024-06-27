@@ -1,6 +1,6 @@
-// File: ContentView.swift
+// File: ImageSelector.swift
 // Package: iapoc
-// Created: 24/06/2024
+// Created: 27/06/2024
 //
 // MIT License
 // 
@@ -24,15 +24,4 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import SwiftUI
-
-
-struct ContentView: View {
-    var body: some View {
-        RunInferenceView()
-    }
-}
-
-#Preview {
-    ContentView()
-}
+import Foundation

@@ -1,6 +1,6 @@
-// File: ContentView.swift
+// File: InferenceResultsView.swift
 // Package: iapoc
-// Created: 24/06/2024
+// Created: 27/06/2024
 //
 // MIT License
 // 
@@ -25,14 +25,21 @@
 // SOFTWARE.
 
 import SwiftUI
+import UIKit
 
 
-struct ContentView: View {
+struct InferenceResultsView: View {
+    let segmentationResult: UIImage?
+    
     var body: some View {
-        RunInferenceView()
+        if let segmentationResult = segmentationResult {
+            Image(uiImage: segmentationResult).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
+        }
+        else {
+            Image(systemName: "square.dotted")
+                .font(.system(size: 40))
+                .symbolRenderingMode(.multicolor)
+                .foregroundColor(.secondary)
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }

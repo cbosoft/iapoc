@@ -1,6 +1,6 @@
-// File: ContentView.swift
+// File: PickableImageView.swift
 // Package: iapoc
-// Created: 24/06/2024
+// Created: 27/06/2024
 //
 // MIT License
 // 
@@ -25,14 +25,26 @@
 // SOFTWARE.
 
 import SwiftUI
+import PhotosUI
 
 
-struct ContentView: View {
+struct RunInferenceView: View {
+    @StateObject private var viewModel: ImageModel = ImageModel();
+    
     var body: some View {
-        RunInferenceView()
+        HStack(alignment: .center, spacing: 10) {
+            VStack {
+                Text("Input Image")
+                PhotosPicker(selection: $viewModel.imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    PickedImageView(imageState: viewModel.imageState).frame(maxWidth: .infinity, maxHeight: .infinity)
+                }.buttonStyle(.borderless).frame(minWidth: 0, maxWidth: .infinity)
+            }
+            VStack {
+                Text("Segmented Image")
+                InferenceResultsView(segmentationResult: viewModel.segmentationResult).frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }

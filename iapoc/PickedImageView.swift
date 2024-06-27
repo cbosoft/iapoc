@@ -1,6 +1,6 @@
-// File: ContentView.swift
+// File: TransferableImageView.swift
 // Package: iapoc
-// Created: 24/06/2024
+// Created: 27/06/2024
 //
 // MIT License
 // 
@@ -27,12 +27,23 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct PickedImageView: View {
+    let imageState: ImageModel.ImageState
+    
     var body: some View {
-        RunInferenceView()
+        switch imageState {
+        case .success(let ui_image):
+            Image(uiImage: ui_image).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
+        case .loading:
+            ProgressView()
+        case .empty:
+            Image(systemName: "photo.artframe")
+                .font(.system(size: 40))
+                .foregroundColor(.blue)
+        case .failure:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.red)
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }
