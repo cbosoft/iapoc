@@ -138,17 +138,15 @@ class IAModel {
             return
         }
         
-        predictions = [];
         for observation in observations {
             if let data = observation.featureValue.multiArrayValue{
                 if observation.featureName == "p" {
                     // TODO: handle segmentation data
+                    // data is the 32 prototype masks used to build the mask for each of the detections
                 }
                 else if observation.featureName == "var_1279" {
+                    predictions = []
                     let npreds = data.shape[2].intValue;
-                    var overall_class: Int = -1;
-                    var overall_score: Float = -1;
-                    var overall_box: BBox = BBox(x: 0, y: 0, w: 1, h: 1)
                     for i in 0..<npreds {
                         let i = i as NSNumber;
                         
@@ -156,28 +154,31 @@ class IAModel {
                         let box: [Float] = (0..<4).map({ j in
                             data[[0, j as NSNumber, i]].floatValue
                         });
+                        let box = BBox(x: box[0], y: box[1], w: box[2], h: box[3])
                         
                         // Next 80 are confidence scores
                         let scores: [Float] = (4..<84).map({ j in
                             data[[0, j as NSNumber, i]].floatValue
                         });
+
+                        // Next 32 are mask weights used to create the final mask from the prototype masks
+                        let mask_weights: [Float] = (84..<116).map({ j in
+                            data[[0, j as NSNumber, i]].floatValue
+                        });
                         
                         // Get the most likely class (i.e. with highest score)
-                        let max_score = scores.max()!;
-                        let i_max = scores.firstIndex(of: max_score)!; // I hate this
-                        if max_score > overall_score {
-                            overall_score = max_score;
-                            overall_class = i_max;
-                            overall_box = BBox(x: box[0], y: box[1], w: box[2], h: box[3]);
+                        let score = scores.max()!
+                        let label = scores.firstIndex(of: max_score)! // I hate this
+
+                        // If score is above threshold, store prediction result.
+                        if score > self.score_thresh {
+                            predictions?.append(Prediction(confidence: score, label: label, box: box, mask_weights: mask_weights))
                         }
-                    }
-                    
-                    // If score is above threshold, store prediction result.
-                    if overall_score > self.score_thresh {
-                        predictions?.append(Prediction(confidence: overall_score, label: overall_class, box: overall_box));
                     }
                 }
             }
         }
+
+        predictions = nonmax_suppression(predictions)
     }
 }
