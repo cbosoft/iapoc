@@ -14,6 +14,7 @@
 		831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA49C2C2D525000A0A988 /* yolov8n.mlpackage */; };
 		831AA49F2C2D539D00A0A988 /* yolov9e.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA49E2C2D539D00A0A988 /* yolov9e.mlpackage */; };
 		831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 831AA4A02C2D5C7800A0A988 /* yolov8m-seg.mlpackage */; };
+		832E867C2C2F2B7200A7F501 /* NMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E867B2C2F2B7200A7F501 /* NMS.swift */; };
 		832E87E02C2DEA3300EBAFCB /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87DF2C2DEA3300EBAFCB /* ImageSelector.swift */; };
 		832E87E22C2DEA5500EBAFCB /* PickedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E12C2DEA5500EBAFCB /* PickedImageView.swift */; };
 		832E87E42C2DEAB200EBAFCB /* InferenceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832E87E32C2DEAB200EBAFCB /* InferenceResultsView.swift */; };
@@ -35,6 +36,7 @@
 		831AA49C2C2D525000A0A988 /* yolov8n.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = yolov8n.mlpackage; path = ../../../yolo2coreml/yolov8n.mlpackage; sourceTree = "<group>"; };
 		831AA49E2C2D539D00A0A988 /* yolov9e.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = yolov9e.mlpackage; path = ../../../yolo2coreml/yolov9e.mlpackage; sourceTree = "<group>"; };
 		831AA4A02C2D5C7800A0A988 /* yolov8m-seg.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; name = "yolov8m-seg.mlpackage"; path = "../../../yolo2coreml/yolov8m-seg.mlpackage"; sourceTree = "<group>"; };
+		832E867B2C2F2B7200A7F501 /* NMS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NMS.swift; path = iapoc/NMS.swift; sourceTree = "<group>"; };
 		832E87DF2C2DEA3300EBAFCB /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
 		832E87E12C2DEA5500EBAFCB /* PickedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImageView.swift; sourceTree = "<group>"; };
 		832E87E32C2DEAB200EBAFCB /* InferenceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceResultsView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		83987E952C2A136E00231FFA = {
 			isa = PBXGroup;
 			children = (
+				832E867B2C2F2B7200A7F501 /* NMS.swift */,
 				832E87EB2C2E161500EBAFCB /* yolov8l-seg.mlpackage */,
 				83987EA02C2A136E00231FFA /* iapoc */,
 				83987E9F2C2A136E00231FFA /* Products */,
@@ -198,6 +201,7 @@
 			files = (
 				83987EA42C2A136E00231FFA /* ContentView.swift in Sources */,
 				831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */,
+				832E867C2C2F2B7200A7F501 /* NMS.swift in Sources */,
 				831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */,
 				832E87E62C2DEB8200EBAFCB /* RunInferenceView.swift in Sources */,
 				832E87E82C2DFBCD00EBAFCB /* draw_preds_on_image.swift in Sources */,
