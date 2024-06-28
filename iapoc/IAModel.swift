@@ -70,6 +70,7 @@ class IAModel {
         let confidence: Float
         let label: Int
         let box: BBox
+        let mask_weights: [Float]
     }
 
     /// The function signature the caller must provide as a completion handler.
