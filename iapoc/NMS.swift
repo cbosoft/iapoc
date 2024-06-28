@@ -67,7 +67,7 @@ func best_pred(_ preds: [IAModel.Prediction]) -> Int {
 }
 
 
-func nonmax_suppression(_ predictions: [IAModel.Prediction], iou_threshold: Float = 0.5) -> [IAModel.Prediction] {
+func nonmax_suppression(_ predictions: [IAModel.Prediction], iou_threshold: Float = 0.25) -> [IAModel.Prediction] {
     var working_predictions = predictions
     var finalised_predictions: [IAModel.Prediction] = []
 
