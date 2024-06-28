@@ -69,14 +69,14 @@ func best_pred(_ preds: [IAModel.Prediction]) -> Int {
 
 func nonmax_suppression(_ predictions: [IAModel.Prediction], iou_threshold: Float = 0.5) -> [IAModel.Prediction] {
     var working_predictions = predictions
-    let finalised_predictions: [IAModel.Prediction] = []
+    var finalised_predictions: [IAModel.Prediction] = []
 
     while working_predictions.count > 0 {
         let top_i = best_pred(working_predictions)
         let top_pred = working_predictions.remove(at: top_i)
 
         finalised_predictions.append(top_pred)
-        var to_remove = []
+        var to_remove: [Int] = []
         for (i, other_pred) in working_predictions.enumerated() {
             let iou = calc_iou(top_pred.box, other_pred.box)
             if iou < iou_threshold {

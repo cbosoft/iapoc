@@ -151,10 +151,10 @@ class IAModel {
                         let i = i as NSNumber;
                         
                         // First 4 are boxes
-                        let box: [Float] = (0..<4).map({ j in
+                        let box_points: [Float] = (0..<4).map({ j in
                             data[[0, j as NSNumber, i]].floatValue
                         });
-                        let box = BBox(x: box[0], y: box[1], w: box[2], h: box[3])
+                        let box = BBox(x: box_points[0], y: box_points[1], w: box_points[2], h: box_points[3])
                         
                         // Next 80 are confidence scores
                         let scores: [Float] = (4..<84).map({ j in
@@ -168,7 +168,7 @@ class IAModel {
                         
                         // Get the most likely class (i.e. with highest score)
                         let score = scores.max()!
-                        let label = scores.firstIndex(of: max_score)! // I hate this
+                        let label = scores.firstIndex(of: score)! // I hate this
 
                         // If score is above threshold, store prediction result.
                         if score > self.score_thresh {
@@ -179,6 +179,8 @@ class IAModel {
             }
         }
 
-        predictions = nonmax_suppression(predictions)
+        if predictions != nil {
+            predictions = nonmax_suppression(predictions!)
+        }
     }
 }
