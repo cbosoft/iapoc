@@ -70,11 +70,14 @@ class ImageModel: ObservableObject {
     @Published private(set) var imageState: ImageState = .empty {
         didSet {
             if case .success(let image) = imageState {
-                analyseImage(image: image)
+                segmentationResult = .loading(Progress())
+                DispatchQueue.main.async {
+                    self.analyseImage(image: image)
+                }
             }
         }
     }
-    @Published private(set) var segmentationResult: UIImage? = nil
+    @Published private(set) var segmentationResult: ImageState = .empty
     
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
@@ -90,8 +93,14 @@ class ImageModel: ObservableObject {
     // MARK: - Private Methods
     
     private func analyseImage(image: UIImage) {
-        func handler(_ predictions: [IAModel.Prediction]?) {
-            segmentationResult = draw_preds(on: image, predictions: predictions)
+        func handler(_ predictions: [IAModel.Prediction]?, mask_proto: IAMaskProto?) {
+            let maybe_im = draw_preds(on: image, predictions: predictions, mask_proto: mask_proto)
+            if let im = maybe_im {
+                segmentationResult = .success(im)
+            }
+            else {
+                segmentationResult = .empty
+            }
         }
         try? ia_model.makePredictions(for: image, completionHandler: handler)
     }

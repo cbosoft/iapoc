@@ -29,17 +29,23 @@ import UIKit
 
 
 struct InferenceResultsView: View {
-    let segmentationResult: UIImage?
+    let segmentationResult: ImageModel.ImageState
     
     var body: some View {
-        if let segmentationResult = segmentationResult {
-            Image(uiImage: segmentationResult).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
-        }
-        else {
+        switch segmentationResult {
+        case .success(let ui_image):
+            Image(uiImage: ui_image).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit)
+        case .loading:
+            ProgressView()
+        case .empty:
             Image(systemName: "square.dotted")
                 .font(.system(size: 40))
                 .symbolRenderingMode(.multicolor)
                 .foregroundColor(.secondary)
+        case .failure:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.red)
         }
     }
 }
