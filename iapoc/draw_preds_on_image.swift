@@ -56,6 +56,14 @@ func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImag
                     
                     let rect = CGRect(x: CGFloat(x1)*sx, y: CGFloat(y1)*sy, width: CGFloat(w)*sx, height: CGFloat(h)*sy);
                     ctx.stroke(rect);
+                    let conf_rounded = Int((pred.confidence * 100.0).rounded())
+                    let label = "\(pred.label) \(conf_rounded)%"
+                    let attrs = [
+                        NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 45)!,
+                        NSAttributedString.Key.foregroundColor: CGColor(gray: 1.0, alpha: 1.0),
+                        NSAttributedString.Key.backgroundColor: colour,
+                    ]
+                    label.draw(at: CGPoint(x: CGFloat(x1)*sx, y: CGFloat(y2)*sy - 50.0), withAttributes: attrs)
                 }
             });
         }
