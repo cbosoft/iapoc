@@ -30,7 +30,7 @@ import UIKit
 let COLOURS: [UIColor] = (0..<4).map({ i in UIColor(named: "C\(i)")!});
 
 
-func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImage? {
+func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?, mask_proto: IAMaskProto?) -> UIImage? {
     if let predictions = predictions {
         var bmp = image
         let sx = image.size.width / 640.0
@@ -38,7 +38,7 @@ func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImag
         
         autoreleasepool {
             let rendererFormat = UIGraphicsImageRendererFormat();
-            rendererFormat.scale = 1;
+            rendererFormat.scale = image.scale;
             let renderer = UIGraphicsImageRenderer(size: bmp.size, format: rendererFormat);
             bmp = renderer.image(actions: { ctx in
                 // Draw original image
@@ -64,6 +64,11 @@ func draw_preds(on image: UIImage, predictions: [IAModel.Prediction]?) -> UIImag
                         NSAttributedString.Key.backgroundColor: colour,
                     ]
                     label.draw(at: CGPoint(x: CGFloat(x1)*sx, y: CGFloat(y2)*sy - 50.0), withAttributes: attrs)
+//                    if let mask_proto {
+//                        let mask = mask_proto.get_weighted_mask(pred.mask_weights)
+//                        let mask_im = IAMaskProto.fltarr2image(mask)
+//                        mask_im.draw(in: CGRect(x: 0, y: 0, width: bmp.size.width, height: bmp.size.height))
+//                    }
                 }
             });
         }

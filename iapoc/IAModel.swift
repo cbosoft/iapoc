@@ -86,7 +86,7 @@ class IAModel {
     }
 
     /// The function signature the caller must provide as a completion handler.
-    typealias ImagePredictionHandler = (_ predictions: [Prediction]?) -> Void
+    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ mask_proto: IAMaskProto?) -> Void
     
     private func createRequest() -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
@@ -126,11 +126,12 @@ class IAModel {
 
         // Start with a `nil` value in case there's a problem.
         var predictions: [Prediction]? = nil
+        var mask_proto: IAMaskProto? = nil
 
         // Impromptu context manager syntax? Swift has some cool stuff
         defer {
             // Send the predictions back to the client.
-            predictionHandler(predictions)
+            predictionHandler(predictions, mask_proto)
         }
 
         // Check for an error first.
@@ -155,6 +156,7 @@ class IAModel {
                 if observation.featureName == "p" {
                     // TODO: handle segmentation data
                     // data is the 32 prototype masks used to build the mask for each of the detections
+                    mask_proto = IAMaskProto(data: data)
                 }
                 else if observation.featureName == "var_1279" {
                     predictions = []

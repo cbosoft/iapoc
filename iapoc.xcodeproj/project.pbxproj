@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8301DD7D2C2F4ECD002B02E2 /* IAMaskProto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301DD7C2C2F4ECD002B02E2 /* IAMaskProto.swift */; };
 		831948272C2AFF87007265C0 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831948262C2AFF87007265C0 /* PhotosUI.framework */; };
 		831948292C2B0902007265C0 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831948282C2B0902007265C0 /* ImageModel.swift */; };
 		8319482B2C2B11BA007265C0 /* IAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8319482A2C2B11BA007265C0 /* IAModel.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8301DD7C2C2F4ECD002B02E2 /* IAMaskProto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAMaskProto.swift; sourceTree = "<group>"; };
 		831948262C2AFF87007265C0 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		831948282C2B0902007265C0 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		8319482A2C2B11BA007265C0 /* IAModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAModel.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				832E87E52C2DEB8200EBAFCB /* RunInferenceView.swift */,
 				832E87E72C2DFBCD00EBAFCB /* draw_preds_on_image.swift */,
 				832E87E92C2E0CCC00EBAFCB /* BBox.swift */,
+				8301DD7C2C2F4ECD002B02E2 /* IAMaskProto.swift */,
 			);
 			path = iapoc;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				83987EA42C2A136E00231FFA /* ContentView.swift in Sources */,
 				831AA49D2C2D525000A0A988 /* yolov8n.mlpackage in Sources */,
 				832E867C2C2F2B7200A7F501 /* NMS.swift in Sources */,
+				8301DD7D2C2F4ECD002B02E2 /* IAMaskProto.swift in Sources */,
 				831AA4A12C2D5C7800A0A988 /* yolov8m-seg.mlpackage in Sources */,
 				832E87E62C2DEB8200EBAFCB /* RunInferenceView.swift in Sources */,
 				832E87E82C2DFBCD00EBAFCB /* draw_preds_on_image.swift in Sources */,
