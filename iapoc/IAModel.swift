@@ -45,30 +45,42 @@ class IAModel {
     }
     
     /// - Tag: name
-    static func createModel() -> VNCoreMLModel {
+    static func createModel() -> (VNCoreMLModel, [Int: String]) {
         let defaultConfig = MLModelConfiguration()
 
-        let wrapper = try? yolov8m_seg(configuration: defaultConfig)
+        let inner = try? yolov8m_seg(configuration: defaultConfig)
 
-        guard let wrapper = wrapper else {
+        guard let inner = inner else {
             fatalError("App failed to create yolo model instance.")
         }
+        
+        let metadata = inner.model.modelDescription.metadata
+        let creator_data = metadata[.creatorDefinedKey] as! [String: String]
+        let names_str_raw = creator_data["names"]!
+        let names_str = names_str_raw
+            .replacingOccurrences(of: "{", with: "{'")
+            .replacingOccurrences(of: ":", with: "':")
+            .replacingOccurrences(of: ", ", with: ", '")
+            .replacingOccurrences(of: "'", with: "\"")
+        let names_json = names_str.data(using: .utf8)!
+        let label_names = try! JSONDecoder().decode([Int: String].self, from: names_json)
 
         // Create a Vision instance using the image classifier's model instance.
-        guard let vision_model = try? VNCoreMLModel(for: wrapper.model) else {
+        guard let vision_model = try? VNCoreMLModel(for: inner.model) else {
             fatalError("App failed to create a `VNCoreMLModel` instance.")
         }
 
-        return vision_model
+        return (vision_model, label_names)
     }
     
-    private static let model = createModel()
+    private static let (model, label_names) = createModel()
     
     /// Stores a classification name and confidence for an image classifier's prediction.
     /// - Tag: Prediction
     struct Prediction {
         let confidence: Float
-        let label: Int
+        let label: String
+        let label_index: Int
         let box: BBox
         let mask_weights: [Float]
     }
@@ -168,11 +180,12 @@ class IAModel {
                         
                         // Get the most likely class (i.e. with highest score)
                         let score = scores.max()!
-                        let label = scores.firstIndex(of: score)! // I hate this
+                        let label_index = scores.firstIndex(of: score)! // I hate this
+                        let label = IAModel.label_names[label_index]!
 
                         // If score is above threshold, store prediction result.
                         if score > self.score_thresh {
-                            predictions?.append(Prediction(confidence: score, label: label, box: box, mask_weights: mask_weights))
+                            predictions?.append(Prediction(confidence: score, label: label, label_index: label_index, box: box, mask_weights: mask_weights))
                         }
                     }
                 }
